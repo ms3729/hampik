@@ -1,3 +1,46 @@
 spring:
   application:
     name: hampik
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  mvc:
+    async:
+      request-timeout: 120000
+  profiles:
+    active: development
+  messages:
+    basename: message
+    encoding: UTF-8
+    fallback-to-system-locale: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLDialect
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Tehran
+          batch_size: 50
+        order_updates: true
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  datasource:
+    url: jdbc:mysql://192.168.88.245:3306/hampik?enabledTLSProtocols=TLSv1.2
+    username: root
+    password: root
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  main:
+    allow-circular-references: true
+  mongodb:
+    authentication-database: hampik
+    username: root
+    password: root
+    database: hampik
+    uri: mongodb://192.168.88.245:27017
