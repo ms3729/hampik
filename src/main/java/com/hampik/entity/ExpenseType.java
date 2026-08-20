@@ -1,23 +1,27 @@
 package com.hampik.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "expense_types")
+@Entity
+@Table(name = "expense_types")
 public class ExpenseType {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(length = 500)
     private String description;
 
-    private boolean active;
+    @Column(nullable = false)
+    private boolean active = true;
 }

@@ -23,7 +23,7 @@ public class ExpenseTypeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExpenseType> getExpenseTypeById(@PathVariable String id) {
+    public ResponseEntity<ExpenseType> getExpenseTypeById(@PathVariable Long id) {
         return expenseTypeService.getExpenseTypeById(id)
                 .map(expenseType -> new ResponseEntity<>(expenseType, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -31,11 +31,9 @@ public class ExpenseTypeController {
 
     @GetMapping("/name/{name}")
     public ResponseEntity<ExpenseType> getExpenseTypeByName(@PathVariable String name) {
-        ExpenseType expenseType = expenseTypeService.getByName(name);
-        if (expenseType != null) {
-            return new ResponseEntity<>(expenseType, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return expenseTypeService.getByName(name)
+                .map(expenseType -> new ResponseEntity<>(expenseType, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/active")
@@ -46,12 +44,16 @@ public class ExpenseTypeController {
 
     @PostMapping
     public ResponseEntity<ExpenseType> createExpenseType(@RequestBody ExpenseType expenseType) {
-        ExpenseType created = expenseTypeService.createExpenseType(expenseType);
-        return new ResponseEntity<>(created, HttpStatus.CREATED);
+        try {
+            ExpenseType created = expenseTypeService.createExpenseType(expenseType);
+            return new ResponseEntity<>(created, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExpenseType> updateExpenseType(@PathVariable String id, @RequestBody ExpenseType expenseType) {
+    public ResponseEntity<ExpenseType> updateExpenseType(@PathVariable Long id, @RequestBody ExpenseType expenseType) {
         try {
             ExpenseType updated = expenseTypeService.updateExpenseType(id, expenseType);
             return new ResponseEntity<>(updated, HttpStatus.OK);
@@ -61,8 +63,12 @@ public class ExpenseTypeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExpenseType(@PathVariable String id) {
-        expenseTypeService.deleteExpenseType(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteExpenseType(@PathVariable Long id) {
+        try {
+            expenseTypeService.deleteExpenseType(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
