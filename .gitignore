@@ -1,5 +1,4 @@
 ```
-# Compiled and build artifacts
 *.class
 *.o
 *.obj

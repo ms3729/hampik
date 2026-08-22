@@ -3,6 +3,7 @@ package com.hampik.controller;
 import com.hampik.entity.ExpenseCategory;
 import com.hampik.entity.ExpenseType;
 import com.hampik.service.ExpenseTypeService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/expense-types")
+@AllArgsConstructor
 public class ExpenseTypeController {
 
-    @Autowired
-    private ExpenseTypeService expenseTypeService;
+    private final ExpenseTypeService expenseTypeService;
 
     @GetMapping
     public ResponseEntity<List<ExpenseType>> getAllExpenseTypes() {
