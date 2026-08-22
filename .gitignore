@@ -4,15 +4,10 @@
 *.o
 *.obj
 *.out
+build/
 target/
 
 # Dependencies
-.mypy_cache/
-.pytest_cache/
-__pycache__/
-venv/
-.venv/
-node_modules/
 .gradle/
 
 # Logs and temp files
@@ -34,7 +29,9 @@ coverage/
 htmlcov/
 .coverage
 
-# System files
-.DS_Store
-Thumbs.db
+# Package manager caches
+node_modules/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
 ```

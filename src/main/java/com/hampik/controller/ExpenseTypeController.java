@@ -1,5 +1,6 @@
 package com.hampik.controller;
 
+import com.hampik.entity.ExpenseCategory;
 import com.hampik.entity.ExpenseType;
 import com.hampik.service.ExpenseTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +24,15 @@ public class ExpenseTypeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExpenseType> getExpenseTypeById(@PathVariable Long id) {
+    public ResponseEntity<ExpenseType> getExpenseTypeById(@PathVariable Integer id) {
         return expenseTypeService.getExpenseTypeById(id)
                 .map(expenseType -> new ResponseEntity<>(expenseType, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/name/{name}")
-    public ResponseEntity<ExpenseType> getExpenseTypeByName(@PathVariable String name) {
-        return expenseTypeService.getByName(name)
-                .map(expenseType -> new ResponseEntity<>(expenseType, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/active")
-    public ResponseEntity<List<ExpenseType>> getActiveExpenseTypes() {
-        List<ExpenseType> expenseTypes = expenseTypeService.getActiveExpenseTypes();
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<ExpenseType>> getByCategory(@PathVariable ExpenseCategory category) {
+        List<ExpenseType> expenseTypes = expenseTypeService.getByCategory(category);
         return new ResponseEntity<>(expenseTypes, HttpStatus.OK);
     }
 
@@ -53,7 +47,7 @@ public class ExpenseTypeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExpenseType> updateExpenseType(@PathVariable Long id, @RequestBody ExpenseType expenseType) {
+    public ResponseEntity<ExpenseType> updateExpenseType(@PathVariable Integer id, @RequestBody ExpenseType expenseType) {
         try {
             ExpenseType updated = expenseTypeService.updateExpenseType(id, expenseType);
             return new ResponseEntity<>(updated, HttpStatus.OK);
@@ -63,7 +57,7 @@ public class ExpenseTypeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExpenseType(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteExpenseType(@PathVariable Integer id) {
         try {
             expenseTypeService.deleteExpenseType(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
