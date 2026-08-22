@@ -1,6 +1,12 @@
+com/hampik/entity/Party.class
+com/hampik/entity/Organization.class
+com/hampik/repository/ExpenseTypeRepository.class
+com/hampik/config/CorsConfig.class
+com/hampik/entity/Language.class
+com/hampik/controller/ExpenseTypeController.class
+com/hampik/config/SecurityConfig.class
+com/hampik/entity/Person.class
 com/hampik/HampikApplication.class
 com/hampik/service/ExpenseTypeService.class
-com/hampik/repository/ExpenseTypeRepository.class
 com/hampik/entity/ExpenseCategory.class
-com/hampik/controller/ExpenseTypeController.class
 com/hampik/entity/ExpenseType.class

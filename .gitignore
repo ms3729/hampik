@@ -1,1 +1,32 @@
-Nothing should be ignored based on the provided file changes. The only added file is a Java source file (`src/main/java/com/hampik/config/SecurityConfig.java`), which should not be ignored. There are no build artifacts, dependencies, temporary files, or other items that need to be added to .gitignore.
+```
+# Compiled and build artifacts
+*.class
+target/
+
+# Dependencies
+.mvn/
+mvn/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# Maven specific
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+```

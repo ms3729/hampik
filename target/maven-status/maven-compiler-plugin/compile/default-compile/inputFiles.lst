@@ -1,6 +1,12 @@
 /workspace/src/main/java/com/hampik/HampikApplication.java
+/workspace/src/main/java/com/hampik/config/CorsConfig.java
+/workspace/src/main/java/com/hampik/config/SecurityConfig.java
 /workspace/src/main/java/com/hampik/controller/ExpenseTypeController.java
 /workspace/src/main/java/com/hampik/entity/ExpenseCategory.java
 /workspace/src/main/java/com/hampik/entity/ExpenseType.java
+/workspace/src/main/java/com/hampik/entity/Language.java
+/workspace/src/main/java/com/hampik/entity/Organization.java
+/workspace/src/main/java/com/hampik/entity/Party.java
+/workspace/src/main/java/com/hampik/entity/Person.java
 /workspace/src/main/java/com/hampik/repository/ExpenseTypeRepository.java
 /workspace/src/main/java/com/hampik/service/ExpenseTypeService.java
