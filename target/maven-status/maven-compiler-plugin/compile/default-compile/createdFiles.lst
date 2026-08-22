@@ -1,3 +1,4 @@
+com/hampik/dto/SaveExpenseTypeDto.class
 com/hampik/entity/Party.class
 com/hampik/entity/Organization.class
 com/hampik/repository/ExpenseTypeRepository.class
@@ -8,5 +9,6 @@ com/hampik/config/SecurityConfig.class
 com/hampik/entity/Person.class
 com/hampik/HampikApplication.class
 com/hampik/service/ExpenseTypeService.class
+com/hampik/dto/ExpenseTypeDto.class
 com/hampik/entity/ExpenseCategory.class
 com/hampik/entity/ExpenseType.class

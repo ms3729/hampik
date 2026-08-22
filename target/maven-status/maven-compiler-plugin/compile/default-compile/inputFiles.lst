@@ -2,6 +2,8 @@
 /workspace/src/main/java/com/hampik/config/CorsConfig.java
 /workspace/src/main/java/com/hampik/config/SecurityConfig.java
 /workspace/src/main/java/com/hampik/controller/ExpenseTypeController.java
+/workspace/src/main/java/com/hampik/dto/ExpenseTypeDto.java
+/workspace/src/main/java/com/hampik/dto/SaveExpenseTypeDto.java
 /workspace/src/main/java/com/hampik/entity/ExpenseCategory.java
 /workspace/src/main/java/com/hampik/entity/ExpenseType.java
 /workspace/src/main/java/com/hampik/entity/Language.java
