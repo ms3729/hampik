@@ -14,14 +14,18 @@ public class ExpenseType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, unique = true)
-    private String name;
-
-    @Column(length = 500)
-    private String description;
+    private String title;
 
     @Column(nullable = false)
-    private boolean active = true;
+    private String icon;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ExpenseCategory category;
+
+    @Column
+    private Boolean hasBonus;
 }
