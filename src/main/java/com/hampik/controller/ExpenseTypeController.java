@@ -2,7 +2,6 @@ package com.hampik.controller;
 
 import com.hampik.dto.ExpenseTypeDto;
 import com.hampik.dto.SaveExpenseTypeDto;
-import com.hampik.entity.ExpenseCategory;
 import com.hampik.service.ExpenseTypeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
