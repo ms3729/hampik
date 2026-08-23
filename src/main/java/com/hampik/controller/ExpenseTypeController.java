@@ -2,7 +2,7 @@ package com.hampik.controller;
 
 import com.hampik.dto.ExpenseTypeDto;
 import com.hampik.dto.SaveExpenseTypeDto;
-import com.hampik.entity.ExpenseCategory;
+import com.hampik.enums.ExpenseCategory;
 import com.hampik.service.ExpenseTypeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/expense-types")
+@RequestMapping("/api/v1/expense-types")
 @AllArgsConstructor
 public class ExpenseTypeController {
 
     private final ExpenseTypeService expenseTypeService;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<ExpenseTypeDto>> getAllExpenseTypes() {
         List<ExpenseTypeDto> expenseTypes = expenseTypeService.getAllExpenseTypes();
         return new ResponseEntity<>(expenseTypes, HttpStatus.OK);
@@ -37,10 +37,10 @@ public class ExpenseTypeController {
         return new ResponseEntity<>(expenseTypes, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<ExpenseTypeDto> createExpenseType(@RequestBody SaveExpenseTypeDto dto) {
+    @PostMapping("/")
+    public ResponseEntity<ExpenseTypeDto> createExpenseType(@RequestBody SaveExpenseTypeDto expenseType) {
         try {
-            ExpenseTypeDto created = expenseTypeService.createExpenseType(dto);
+            ExpenseTypeDto created = expenseTypeService.createExpenseType(expenseType);
             return new ResponseEntity<>(created, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -48,9 +48,9 @@ public class ExpenseTypeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExpenseTypeDto> updateExpenseType(@PathVariable Integer id, @RequestBody SaveExpenseTypeDto dto) {
+    public ResponseEntity<ExpenseTypeDto> updateExpenseType(@PathVariable Integer id, @RequestBody SaveExpenseTypeDto expenseType) {
         try {
-            ExpenseTypeDto updated = expenseTypeService.updateExpenseType(id, dto);
+            ExpenseTypeDto updated = expenseTypeService.updateExpenseType(id, expenseType);
             return new ResponseEntity<>(updated, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
