@@ -1,10 +1,10 @@
 package com.hampik.controller;
 
+import com.hampik.dto.ExpenseTypeDto;
+import com.hampik.dto.SaveExpenseTypeDto;
 import com.hampik.entity.ExpenseCategory;
-import com.hampik.entity.ExpenseType;
 import com.hampik.service.ExpenseTypeService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,28 +19,28 @@ public class ExpenseTypeController {
     private final ExpenseTypeService expenseTypeService;
 
     @GetMapping
-    public ResponseEntity<List<ExpenseType>> getAllExpenseTypes() {
-        List<ExpenseType> expenseTypes = expenseTypeService.getAllExpenseTypes();
+    public ResponseEntity<List<ExpenseTypeDto>> getAllExpenseTypes() {
+        List<ExpenseTypeDto> expenseTypes = expenseTypeService.getAllExpenseTypes();
         return new ResponseEntity<>(expenseTypes, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExpenseType> getExpenseTypeById(@PathVariable Integer id) {
+    public ResponseEntity<ExpenseTypeDto> getExpenseTypeById(@PathVariable Integer id) {
         return expenseTypeService.getExpenseTypeById(id)
                 .map(expenseType -> new ResponseEntity<>(expenseType, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<ExpenseType>> getByCategory(@PathVariable ExpenseCategory category) {
-        List<ExpenseType> expenseTypes = expenseTypeService.getByCategory(category);
+    public ResponseEntity<List<ExpenseTypeDto>> getByCategory(@PathVariable ExpenseCategory category) {
+        List<ExpenseTypeDto> expenseTypes = expenseTypeService.getByCategory(category);
         return new ResponseEntity<>(expenseTypes, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<ExpenseType> createExpenseType(@RequestBody ExpenseType expenseType) {
+    public ResponseEntity<ExpenseTypeDto> createExpenseType(@RequestBody SaveExpenseTypeDto dto) {
         try {
-            ExpenseType created = expenseTypeService.createExpenseType(expenseType);
+            ExpenseTypeDto created = expenseTypeService.createExpenseType(dto);
             return new ResponseEntity<>(created, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -48,9 +48,9 @@ public class ExpenseTypeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExpenseType> updateExpenseType(@PathVariable Integer id, @RequestBody ExpenseType expenseType) {
+    public ResponseEntity<ExpenseTypeDto> updateExpenseType(@PathVariable Integer id, @RequestBody SaveExpenseTypeDto dto) {
         try {
-            ExpenseType updated = expenseTypeService.updateExpenseType(id, expenseType);
+            ExpenseTypeDto updated = expenseTypeService.updateExpenseType(id, dto);
             return new ResponseEntity<>(updated, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
