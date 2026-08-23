@@ -2,7 +2,6 @@ package com.hampik.service;
 
 import com.hampik.dto.ExpenseTypeDto;
 import com.hampik.dto.SaveExpenseTypeDto;
-import com.hampik.entity.ExpenseCategory;
 import com.hampik.entity.ExpenseType;
 import com.hampik.enums.ExpenseCategory;
 import com.hampik.repository.ExpenseTypeRepository;
@@ -37,7 +36,6 @@ public class ExpenseTypeService {
             throw new RuntimeException("ExpenseType with title '" + dto.title() + "' already exists");
         }
         ExpenseType expenseType = toEntity(dto);
-        expenseType.setId(null); // Ensure ID is null for new entities
         ExpenseType saved = expenseTypeRepository.save(expenseType);
         return toDto(saved);
     }
@@ -53,7 +51,7 @@ public class ExpenseTypeService {
                     }
                     existing.setTitle(dto.title());
                     existing.setIcon(dto.icon());
-                    existing.setCategory(dto.category());
+                    existing.setCategory(ExpenseCategory.valueOf(dto.category()));
                     existing.setHasBonus(dto.hasBonus());
                     return toDto(expenseTypeRepository.save(existing));
                 })
@@ -67,8 +65,8 @@ public class ExpenseTypeService {
         expenseTypeRepository.deleteById(id);
     }
 
-    public List<ExpenseTypeDto> getByCategory(ExpenseCategory category) {
-        return expenseTypeRepository.findByCategory(category).stream()
+    public List<ExpenseTypeDto> getByCategory(String category) {
+        return expenseTypeRepository.findByCategory(ExpenseCategory.valueOf(category)).stream()
                 .map(this::toDto)
                 .toList();
     }
@@ -78,7 +76,7 @@ public class ExpenseTypeService {
                 entity.getId(),
                 entity.getTitle(),
                 entity.getIcon(),
-                entity.getCategory(),
+                entity.getCategory().name(),
                 entity.getHasBonus()
         );
     }
@@ -87,7 +85,7 @@ public class ExpenseTypeService {
         ExpenseType entity = new ExpenseType();
         entity.setTitle(dto.title());
         entity.setIcon(dto.icon());
-        entity.setCategory(dto.category());
+        entity.setCategory(ExpenseCategory.valueOf(dto.category()));
         entity.setHasBonus(dto.hasBonus());
         return entity;
     }
