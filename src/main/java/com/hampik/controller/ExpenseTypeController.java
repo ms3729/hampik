@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/expense-types")
+@RequestMapping("/api/v1/expense-types")
 @AllArgsConstructor
 public class ExpenseTypeController {
 

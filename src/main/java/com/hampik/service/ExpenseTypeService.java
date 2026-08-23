@@ -4,8 +4,9 @@ import com.hampik.dto.ExpenseTypeDto;
 import com.hampik.dto.SaveExpenseTypeDto;
 import com.hampik.entity.ExpenseCategory;
 import com.hampik.entity.ExpenseType;
+import com.hampik.enums.ExpenseCategory;
 import com.hampik.repository.ExpenseTypeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +15,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class ExpenseTypeService {
 
-    @Autowired
-    private ExpenseTypeRepository expenseTypeRepository;
+    private final ExpenseTypeRepository expenseTypeRepository;
 
     public List<ExpenseTypeDto> getAllExpenseTypes() {
         return expenseTypeRepository.findAll().stream()

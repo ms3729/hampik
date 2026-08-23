@@ -1,6 +1,6 @@
 package com.hampik.repository;
 
-import com.hampik.entity.ExpenseCategory;
+import com.hampik.enums.ExpenseCategory;
 import com.hampik.entity.ExpenseType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
