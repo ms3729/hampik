@@ -69,8 +69,8 @@ public class ExpenseTypeService {
     }
 
     @Transactional(readOnly = true)
-    public List<ExpenseTypeDto> getByCategory(ExpenseCategory category) {
-        return expenseTypeRepository.findByCategory(category).stream()
+    public List<ExpenseTypeDto> getByCategory(String category) {
+        return expenseTypeRepository.findByCategory(ExpenseCategory.valueOf(category)).stream()
                 .map(this::toDto)
                 .toList();
     }

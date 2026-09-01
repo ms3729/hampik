@@ -4,11 +4,13 @@ import com.hampik.dto.CreateTripDto;
 import com.hampik.dto.TripSummaryDto;
 import com.hampik.entity.Trip;
 import com.hampik.enums.TripStatus;
+import com.hampik.enums.TripType;
 import com.hampik.repository.TripRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -42,9 +44,9 @@ public class TripService {
         });
 
         Trip trip = Trip.builder()
-                .type(dto.type())
+                .type(TripType.valueOf(dto.type()))
                 .name(dto.name())
-                .startDate(dto.startDate())
+                .startDate(LocalDate.parse(dto.startDate()))
                 .from(dto.from())
                 .to(dto.to())
                 .routeName(dto.routeName())
@@ -94,10 +96,10 @@ public class TripService {
     private TripSummaryDto toDto(Trip trip) {
         return new TripSummaryDto(
                 trip.getId(),
-                trip.getType(),
+                trip.getType().name(),
                 trip.getName(),
-                trip.getStartDate(),
-                trip.getStatus(),
+                trip.getStartDate().toString(),
+                trip.getStatus().name(),
                 trip.getFrom(),
                 trip.getTo(),
                 trip.getRouteName(),

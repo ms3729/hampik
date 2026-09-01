@@ -1,15 +1,16 @@
 package com.hampik.entity;
 
-import com.hampik.enums.TripType;
 import com.hampik.enums.TripStatus;
+import com.hampik.enums.TripType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
-import java.time.OffsetDateTime;
-
-@Data
 @Entity
 @Table(name = "trips")
 @Data
@@ -42,7 +43,7 @@ public class Trip {
     private String from;
     private String to;
     private String routeName;
-    private Double totalKm;
+    private int totalKm;
 
     // Fields specific to gathering/outing/amusement types
     private String location;
