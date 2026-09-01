@@ -7,6 +7,9 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
+import java.time.OffsetDateTime;
+
+@Data
 @Entity
 @Table(name = "trips")
 @Data

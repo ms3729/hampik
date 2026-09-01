@@ -3,6 +3,7 @@ package com.hampik.controller;
 import com.hampik.dto.CreateExpenseDto;
 import com.hampik.dto.ExpenseDto;
 import com.hampik.service.ExpenseService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/expenses")
+@AllArgsConstructor
 public class ExpenseController {
 
     private final ExpenseService expenseService;
-
-    public ExpenseController(ExpenseService expenseService) {
-        this.expenseService = expenseService;
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ExpenseDto> getExpenseById(@PathVariable Long id) {
@@ -25,13 +23,13 @@ public class ExpenseController {
         return ResponseEntity.ok(expense);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ExpenseDto>> getExpensesByTripId(@RequestParam Long tripId) {
+    @GetMapping("/{tripId}")
+    public ResponseEntity<List<ExpenseDto>> getExpensesByTripId(@PathVariable Long tripId) {
         List<ExpenseDto> expenses = expenseService.getExpensesByTripId(tripId);
         return ResponseEntity.ok(expenses);
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<ExpenseDto> saveExpense(@RequestParam Long tripId, 
                                                   @RequestBody CreateExpenseDto dto) {
         ExpenseDto savedExpense = expenseService.saveExpense(tripId, dto);

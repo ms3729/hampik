@@ -6,6 +6,7 @@ import com.hampik.entity.Expense;
 import com.hampik.enums.ExpenseCategory;
 import com.hampik.entity.Trip;
 import com.hampik.entity.User;
+import com.hampik.enums.ExpenseCategory;
 import com.hampik.repository.ExpenseRepository;
 import com.hampik.repository.TripRepository;
 import com.hampik.repository.UserRepository;

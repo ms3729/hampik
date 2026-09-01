@@ -80,7 +80,7 @@ public class ExpenseTypeService {
                 entity.getId(),
                 entity.getTitle(),
                 entity.getIcon(),
-                entity.getCategory(),
+                entity.getCategory().name(),
                 entity.getHasBonus()
         );
     }

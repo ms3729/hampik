@@ -6,7 +6,7 @@ public record ExpenseTypeDto(
         Integer id,
         String title,
         String icon,
-        ExpenseCategory category,
+        String category,
         Boolean hasBonus
 ) {
 }
