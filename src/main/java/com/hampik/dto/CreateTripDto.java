@@ -7,7 +7,7 @@ public record CreateTripDto(
         String from,
         String to,
         String routeName,
-        int totalKm,
+        Integer totalKm,
         String location,
         String time
 ) {

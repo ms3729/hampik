@@ -21,7 +21,6 @@ public class Expense {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
 
     @Column(nullable = false)

@@ -1,6 +1,6 @@
 package com.hampik.enums;
 
 public enum TripStatus {
-    ACTIVE,
-    FINISHED
+    active,
+    finished
 }

@@ -17,9 +17,10 @@ public class TripController {
 
     private final TripService tripService;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<TripSummaryDto>> getAllTrips() {
-        return ResponseEntity.ok(tripService.getAllTrips());
+        List<TripSummaryDto> result=tripService.getAllTrips();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/active")
@@ -31,7 +32,7 @@ public class TripController {
         return ResponseEntity.ok(activeTrip);
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<TripSummaryDto> createTrip(@RequestBody CreateTripDto dto) {
         return ResponseEntity.ok(tripService.createTrip(dto));
     }

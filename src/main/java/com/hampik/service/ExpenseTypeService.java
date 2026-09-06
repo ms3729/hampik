@@ -55,7 +55,7 @@ public class ExpenseTypeService {
                     existing.setIcon(dto.icon());
                     existing.setCategory(dto.category());
                     Boolean hasBonus = dto.hasBonus();
-                    existing.setHasBonus(hasBonus != null ? hasBonus : false);
+                    existing.setHasBonus(hasBonus != null && hasBonus);
                     return toDto(expenseTypeRepository.save(existing));
                 })
                 .orElseThrow(() -> new RuntimeException("ExpenseType not found with id: " + id));
@@ -91,7 +91,7 @@ public class ExpenseTypeService {
         entity.setIcon(dto.icon());
         entity.setCategory(dto.category());
         Boolean hasBonus = dto.hasBonus();
-        entity.setHasBonus(hasBonus != null ? hasBonus : false);
+        entity.setHasBonus(hasBonus != null && hasBonus);
         return entity;
     }
 }

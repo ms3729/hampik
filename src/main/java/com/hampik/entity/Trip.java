@@ -4,7 +4,6 @@ import com.hampik.enums.TripStatus;
 import com.hampik.enums.TripType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,23 +15,21 @@ import java.time.OffsetDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TripType type;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @Builder.Default
-    private TripStatus status = TripStatus.ACTIVE;
+    private TripStatus status = TripStatus.active;
 
     @Column(nullable = false)
     private LocalDate startDate;
@@ -40,12 +37,12 @@ public class Trip {
     private OffsetDateTime finishedAt;
 
     // Fields specific to trip type
-    private String from;
-    private String to;
+    private String origin;
+    private String destination;
     private String routeName;
     private int totalKm;
 
     // Fields specific to gathering/outing/amusement types
-    private String location;
-    private String time;
+    private String location_type;
+    private String tim;
 }

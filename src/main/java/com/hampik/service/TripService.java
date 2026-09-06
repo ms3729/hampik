@@ -30,31 +30,32 @@ public class TripService {
 
     @Transactional(readOnly = true)
     public TripSummaryDto getActiveTrip() {
-        return tripRepository.findFirstByStatusOrderByStartDateDesc(TripStatus.ACTIVE)
+        return tripRepository.findFirstByStatusOrderByStartDateDesc(TripStatus.active)
                 .map(this::toDto)
                 .orElse(null);
     }
 
     public TripSummaryDto createTrip(CreateTripDto dto) {
         // Deactivate any existing active trips
-        tripRepository.findByStatus(TripStatus.ACTIVE).forEach(trip -> {
-            trip.setStatus(TripStatus.FINISHED);
+        tripRepository.findByStatus(TripStatus.active).forEach(trip -> {
+            trip.setStatus(TripStatus.finished);
             trip.setFinishedAt(OffsetDateTime.now());
             tripRepository.save(trip);
         });
 
-        Trip trip = Trip.builder()
-                .type(TripType.valueOf(dto.type()))
-                .name(dto.name())
-                .startDate(LocalDate.parse(dto.startDate()))
-                .from(dto.from())
-                .to(dto.to())
-                .routeName(dto.routeName())
-                .totalKm(dto.totalKm())
-                .location(dto.location())
-                .time(dto.time())
-                .status(TripStatus.ACTIVE)
-                .build();
+        Trip trip = new Trip();
+        trip.setType(TripType.valueOf(dto.type()));
+        trip.setTitle(dto.name());
+        trip.setStartDate(LocalDate.parse(dto.startDate()));
+        trip.setOrigin(dto.from());
+        trip.setDestination(dto.to());
+        trip.setRouteName(dto.routeName());
+        trip.setLocation_type(dto.location());
+        if(trip.getType().equals(TripType.trip)) {
+            trip.setTotalKm(dto.totalKm());
+        }
+        trip.setTim(dto.time());
+        trip.setStatus(TripStatus.active);
 
         tripRepository.save(trip);
         return toDto(trip);
@@ -65,15 +66,15 @@ public class TripService {
                 .orElseThrow(() -> new RuntimeException("Trip not found with id: " + id));
 
         // Deactivate all other trips
-        tripRepository.findByStatus(TripStatus.ACTIVE).forEach(t -> {
-            if (!t.getId().equals(id)) {
-                t.setStatus(TripStatus.FINISHED);
+        tripRepository.findByStatus(TripStatus.active).forEach(t -> {
+            if (t.getId() != id) {
+                t.setStatus(TripStatus.finished);
                 t.setFinishedAt(OffsetDateTime.now());
                 tripRepository.save(t);
             }
         });
 
-        trip.setStatus(TripStatus.ACTIVE);
+        trip.setStatus(TripStatus.active);
         trip.setFinishedAt(null);
         tripRepository.save(trip);
         return toDto(trip);
@@ -83,7 +84,7 @@ public class TripService {
         Trip trip = tripRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Trip not found with id: " + id));
 
-        trip.setStatus(TripStatus.FINISHED);
+        trip.setStatus(TripStatus.finished);
         trip.setFinishedAt(OffsetDateTime.now());
         tripRepository.save(trip);
         return toDto(trip);
@@ -97,15 +98,15 @@ public class TripService {
         return new TripSummaryDto(
                 trip.getId(),
                 trip.getType().name(),
-                trip.getName(),
+                trip.getTitle(),
                 trip.getStartDate().toString(),
                 trip.getStatus().name(),
-                trip.getFrom(),
-                trip.getTo(),
+                trip.getOrigin(),
+                trip.getDestination(),
                 trip.getRouteName(),
                 trip.getTotalKm(),
-                trip.getLocation(),
-                trip.getTime()
+                trip.getLocation_type(),
+                trip.getTim()
         );
     }
 }
