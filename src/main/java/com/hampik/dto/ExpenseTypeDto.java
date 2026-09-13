@@ -1,6 +1,6 @@
 package com.hampik.dto;
 
-import com.hampik.entity.ExpenseCategory;
+import com.hampik.enums.ExpenseCategory;
 
 public record ExpenseTypeDto(
         Integer id,

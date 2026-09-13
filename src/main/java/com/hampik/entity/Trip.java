@@ -1,65 +1,47 @@
 package com.hampik.entity;
 
+import com.hampik.enums.TripType;
+import com.hampik.enums.TripStatus;
 import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "trips")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TripType type;
+
     @Column(nullable = false)
     private String name;
 
-    private String description;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private TripStatus status = TripStatus.ACTIVE;
 
     @Column(nullable = false)
-    private OffsetDateTime startDate;
+    private LocalDate startDate;
 
-    private OffsetDateTime endDate;
+    private OffsetDateTime finishedAt;
 
-    public Trip() {}
+    // Fields specific to trip type
+    private String from;
+    private String to;
+    private String routeName;
+    private Double totalKm;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public OffsetDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(OffsetDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public OffsetDateTime getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(OffsetDateTime endDate) {
-        this.endDate = endDate;
-    }
+    // Fields specific to gathering/outing/amusement types
+    private String location;
+    private String time;
 }
