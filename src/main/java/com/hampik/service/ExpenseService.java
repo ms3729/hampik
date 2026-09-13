@@ -6,6 +6,7 @@ import com.hampik.entity.Expense;
 import com.hampik.enums.ExpenseCategory;
 import com.hampik.entity.Trip;
 import com.hampik.entity.User;
+import com.hampik.enums.ExpenseCategory;
 import com.hampik.repository.ExpenseRepository;
 import com.hampik.repository.TripRepository;
 import com.hampik.repository.UserRepository;
@@ -22,9 +23,9 @@ public class ExpenseService {
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
 
-    public ExpenseService(ExpenseRepository expenseRepository, 
-                         TripRepository tripRepository, 
-                         UserRepository userRepository) {
+    public ExpenseService(ExpenseRepository expenseRepository,
+                          TripRepository tripRepository,
+                          UserRepository userRepository) {
         this.expenseRepository = expenseRepository;
         this.tripRepository = tripRepository;
         this.userRepository = userRepository;
@@ -32,15 +33,15 @@ public class ExpenseService {
 
     public ExpenseDto saveExpense(Long tripId, CreateExpenseDto dto) {
         Trip trip = tripRepository.findById(tripId)
-            .orElseThrow(() -> new RuntimeException("Trip not found with id: " + tripId));
-        
+                .orElseThrow(() -> new RuntimeException("Trip not found with id: " + tripId));
+
         User payer = userRepository.findById(dto.payerId())
-            .orElseThrow(() -> new RuntimeException("Payer not found with id: " + dto.payerId()));
-        
-        List<User> partners = dto.partnerIds() != null 
-            ? userRepository.findAllById(dto.partnerIds())
-            : List.of();
-        
+                .orElseThrow(() -> new RuntimeException("Payer not found with id: " + dto.payerId()));
+
+        List<User> partners = dto.partnerIds() != null
+                ? userRepository.findAllById(dto.partnerIds())
+                : List.of();
+
         if (dto.partnerIds() != null && !dto.partnerIds().isEmpty() && partners.size() != dto.partnerIds().size()) {
             throw new RuntimeException("Some partner IDs are invalid");
         }
@@ -62,7 +63,7 @@ public class ExpenseService {
     @Transactional(readOnly = true)
     public ExpenseDto getExpenseById(Long id) {
         Expense expense = expenseRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Expense not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Expense not found with id: " + id));
         return toDto(expense);
     }
 
@@ -80,21 +81,21 @@ public class ExpenseService {
     }
 
     private ExpenseDto toDto(Expense expense) {
-        List<Long> partnerIds = expense.getPartners() != null 
-            ? expense.getPartners().stream().map(User::getId).toList()
-            : List.of();
-        
+        List<Long> partnerIds = expense.getPartners() != null
+                ? expense.getPartners().stream().map(User::getId).toList()
+                : List.of();
+
         return new ExpenseDto(
-            expense.getId(),
-            expense.getTrip().getId(),
-            expense.getTitle(),
-            expense.getCategory().name(),
-            expense.getAmount(),
-            expense.getPayer().getId(),
-            partnerIds,
-            expense.getCreatedAt(),
-            expense.getSpentAt(),
-            expense.getBonus()
+                expense.getId(),
+                expense.getTrip().getId(),
+                expense.getTitle(),
+                expense.getCategory().name(),
+                expense.getAmount(),
+                expense.getPayer().getId(),
+                partnerIds,
+                expense.getCreatedAt(),
+                expense.getSpentAt(),
+                expense.getBonus()
         );
     }
 }

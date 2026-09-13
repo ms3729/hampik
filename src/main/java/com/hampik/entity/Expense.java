@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+
 @Entity
 @Table(name = "expenses")
 @Data
@@ -15,10 +16,9 @@ import java.util.List;
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
 
     @Column(nullable = false)
@@ -43,7 +43,7 @@ public class Expense {
     )
     private List<User> partners;
 
-    @Column(nullable = false, updatable = false)
+    @CreatedDate
     private OffsetDateTime createdAt;
 
     private OffsetDateTime spentAt;

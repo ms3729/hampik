@@ -18,7 +18,7 @@ public class ExpenseTypeController {
 
     private final ExpenseTypeService expenseTypeService;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<ExpenseTypeDto>> getAllExpenseTypes() {
         List<ExpenseTypeDto> expenseTypes = expenseTypeService.getAllExpenseTypes();
         return new ResponseEntity<>(expenseTypes, HttpStatus.OK);
@@ -32,12 +32,12 @@ public class ExpenseTypeController {
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<ExpenseTypeDto>> getByCategory(@PathVariable ExpenseCategory category) {
+    public ResponseEntity<List<ExpenseTypeDto>> getByCategory(@PathVariable String category) {
         List<ExpenseTypeDto> expenseTypes = expenseTypeService.getByCategory(category);
         return new ResponseEntity<>(expenseTypes, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<ExpenseTypeDto> createExpenseType(@RequestBody SaveExpenseTypeDto dto) {
         try {
             ExpenseTypeDto created = expenseTypeService.createExpenseType(dto);

@@ -16,14 +16,18 @@ import java.time.OffsetDateTime;
 public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TripType type;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TripType type;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

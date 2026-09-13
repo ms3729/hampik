@@ -24,7 +24,6 @@ public class ExpenseType {
     private String icon;
 
     @Enumerated(EnumType.STRING)
-
     @Column(nullable = false)
     private ExpenseCategory category;
 
