@@ -3,6 +3,8 @@ package com.hampik.entity;
 import com.hampik.enums.ExpenseCategory;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+
 import java.time.OffsetDateTime;
 import java.util.List;
 

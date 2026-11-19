@@ -33,7 +33,7 @@ public class ExpenseTypeController {
 
     @GetMapping("/category/{category}")
     public ResponseEntity<List<ExpenseTypeDto>> getByCategory(@PathVariable String category) {
-        List<ExpenseTypeDto> expenseTypes = expenseTypeService.getByCategory(category);
+        List<ExpenseTypeDto> expenseTypes = expenseTypeService.getByCategory(ExpenseCategory.valueOf(category));
         return new ResponseEntity<>(expenseTypes, HttpStatus.OK);
     }
 

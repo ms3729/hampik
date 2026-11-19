@@ -43,10 +43,10 @@ public class TripService {
 
         Trip trip = Trip.builder()
                 .type(dto.type())
-                .name(dto.name())
+                .title(dto.name())
                 .startDate(dto.startDate())
-                .from(dto.from())
-                .to(dto.to())
+                .frm(dto.from())
+                .tu(dto.to())
                 .routeName(dto.routeName())
                 .totalKm(dto.totalKm())
                 .location(dto.location())
@@ -64,7 +64,7 @@ public class TripService {
 
         // Deactivate all other trips
         tripRepository.findByStatus(TripStatus.ACTIVE).forEach(t -> {
-            if (!t.getId().equals(id)) {
+            if (t.getId()!=id) {
                 t.setStatus(TripStatus.FINISHED);
                 t.setFinishedAt(OffsetDateTime.now());
                 tripRepository.save(t);
@@ -95,11 +95,11 @@ public class TripService {
         return new TripSummaryDto(
                 trip.getId(),
                 trip.getType(),
-                trip.getName(),
+                trip.getTitle(),
                 trip.getStartDate(),
                 trip.getStatus(),
-                trip.getFrom(),
-                trip.getTo(),
+                trip.getFrm(),
+                trip.getTu(),
                 trip.getRouteName(),
                 trip.getTotalKm(),
                 trip.getLocation(),

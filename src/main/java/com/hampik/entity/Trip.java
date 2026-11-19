@@ -22,10 +22,6 @@ public class Trip {
     @Column(nullable = false)
     private TripType type;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TripType type;
-
     @Column(nullable = false)
     private String title;
 
@@ -40,8 +36,8 @@ public class Trip {
     private OffsetDateTime finishedAt;
 
     // Fields specific to trip type
-    private String from;
-    private String to;
+    private String frm;
+    private String tu;
     private String routeName;
     private Double totalKm;
 
